@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Performance Predictor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <span class="brand-mark">SP</span>
+        <span>Student Performance Predictor</span>
+      </a>
+      <span class="status"><span></span> Model ready</span>
+    </header>
+
+    <section class="intro">
+      <p class="eyebrow">A small study check-in</p>
+      <h1>See where your<br><em>next exam</em> could land.</h1>
+      <p class="intro-copy">
+        Put in a few details about your current routine. The model gives you a
+        rough score estimate based on the project dataset.
+      </p>
+    </section>
+
+    <section class="workspace">
+      <form id="predict-form" class="form-card">
+        <div class="card-heading">
+          <div>
+            <p class="section-number">01 — YOUR DETAILS</p>
+            <h2>Tell us about this semester</h2>
+          </div>
+          <span class="tiny-note">4 inputs</span>
+        </div>
+
+        <div class="fields">
+          <label>
+            <span>Study hours</span>
+            <small>Average hours studied per day</small>
+            <div class="input-wrap">
+              <input name="study_hours" type="number" min="0" max="24" step="0.1" placeholder="e.g. 5.0" required>
+              <b>hrs</b>
+            </div>
+          </label>
+
+          <label>
+            <span>Attendance</span>
+            <small>How often you make it to class</small>
+            <div class="input-wrap">
+              <input name="attendance" type="number" min="0" max="100" step="1" placeholder="e.g. 88" required>
+              <b>%</b>
+            </div>
+          </label>
+
+          <label>
+            <span>Previous score</span>
+            <small>Your most recent exam score</small>
+            <div class="input-wrap">
+              <input name="previous_score" type="number" min="0" max="100" step="1" placeholder="e.g. 76" required>
+              <b>/ 100</b>
+            </div>
+          </label>
+
+          <label>
+            <span>Assignments completed</span>
+            <small>Completed assignments so far</small>
+            <div class="input-wrap">
+              <input name="assignments_completed" type="number" min="0" step="1" placeholder="e.g. 9" required>
+              <b>done</b>
+            </div>
+          </label>
+        </div>
+
+        <button type="submit" id="predict-button">
+          <span>Predict my score</span>
+          <span class="arrow">→</span>
+        </button>
+        <p class="form-error" id="form-error"></p>
+      </form>
+
+      <aside class="result-card" id="result-card">
+        <div class="result-top">
+          <p class="section-number">02 — ESTIMATE</p>
+          <span class="result-dot"></span>
+        </div>
+        <div class="empty-state" id="empty-state">
+          <div class="scribble">↘</div>
+          <h3>Your result<br>will show up here.</h3>
+          <p>Nothing complicated. Fill in the four boxes and we'll do the maths.</p>
+        </div>
+
+        <div class="result-content" id="result-content" hidden>
+          <p class="result-label">Predicted exam score</p>
+          <div class="score"><span id="score">--</span><small>/ 100</small></div>
+          <p class="result-message" id="result-message"></p>
+          <div class="meter"><span id="meter-fill"></span></div>
+          <p class="fine-print">This is a learning/demo prediction, not an academic assessment.</p>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <span>Linear Regression · Scikit-learn</span>
+      <span>Built from a small synthetic dataset</span>
+    </footer>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
